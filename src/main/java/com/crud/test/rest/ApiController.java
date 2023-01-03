@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
     import org.springframework.web.bind.annotation.PostMapping;
     // import org.springframework.web.bind.annotation.PutMapping;
     import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 
 
 
@@ -101,6 +105,35 @@ public class ApiController {
 			  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
 		}
 	}
+
+	@PostMapping("/test2")
+	public String test2(@RequestHeader String auth) {
+		System.out.println("printing the auth "+auth);
+		return "Success";
+	    // try {
+		// 	return eDAO.UserId(auth);
+		// } catch (EmptyResultDataAccessException ex) {
+		// 	throw new ResponseStatusException(
+		// 	  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
+		// }
+	}
+
+
     
+	@GetMapping("/test3")
+public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
+    Jws<Claims> token = JWTGenerateValidateHMAC.parseJwt(jwt);
+    Claims claims = token.getBody();
+
+    boolean isExpired = JWTGenerateValidateHMAC.isTokenExpired(claims.getExpiration());
+	boolean isValid = JWTGenerateValidateHMAC.isTokenValid(jwt, claims);
+
+    if (isExpired || !isValid) {
+        return "Unauthorized: Invalid or expired token";
+    } else {
+        // Return data or perform protected action
+        return "Success: Valid token";
+    }
+}
 }
 

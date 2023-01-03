@@ -163,5 +163,23 @@ public class JWTGenerateValidateHMAC extends User{
         return jwtToken;
     }
 
+
+
+
+
+
+
+
+
+
+    public static boolean isTokenExpired(Date expiration) {
+        return expiration.before(new Date());
+    }
+
+
+    public static boolean isTokenValid(String jwt, Claims claims) {
+        Claims parsedClaims = parseJwt(jwt).getBody();
+        return parsedClaims.equals(claims);
+    }
    
 }
