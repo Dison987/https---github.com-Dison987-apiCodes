@@ -9,4 +9,5 @@ public interface SellerDAO {
 	public int saveData(Seller s);
 	public int validateData(Seller s);
 	public Seller StateID(Seller s);
+	public Seller SellerID(Seller s);
 }
