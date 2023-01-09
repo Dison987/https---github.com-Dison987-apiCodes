@@ -35,6 +35,8 @@ public class ApiController {
 	@Autowired 
 	private UserDAO eDAO;
 	private SellerDAO sDAO;
+
+
 	
     //GetMapping
     @RequestMapping({"/Users","testing"})
