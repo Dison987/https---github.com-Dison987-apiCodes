@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+// import com.crud.test.rest.profileData.Seller;
+// import com.crud.test.rest.profileData.SellerDAO;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 
@@ -31,28 +34,20 @@ public class ApiController {
 	
 	@Autowired 
 	private UserDAO eDAO;
+	private SellerDAO sDAO;
 	
     //GetMapping
     @RequestMapping({"/Users","testing"})
 	public List<User> findAll() {
 		return eDAO.findAll();
 	}
-	// @GetMapping("/Users")
-	// public List<User> findAll() {
-	// 	return eDAO.findAll();
-	// }
-	
+
 
 	@GetMapping("/Users/{id}")
 	public User findById(@PathVariable int id) {
 		return eDAO.findById(id);
 	}
 
-	// @GetMapping("/Users")
-	// public User findUsersId(@RequestBody Map<String, String> params) {
-	// 	int id = Integer.parseInt(params.get("id"));
-	// 	return eDAO.findById(id);
-	// }
 	
 	@DeleteMapping("/Users/{id}")
 	public String deleteById(@PathVariable int id) {
@@ -79,7 +74,6 @@ public class ApiController {
 			throw new ResponseStatusException(
 			  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
 		}
-		// return eDAO.login(e);
 
 		
     
@@ -110,17 +104,12 @@ public class ApiController {
 	public String test2(@RequestHeader String auth) {
 		System.out.println("printing the auth "+auth);
 		return "Success";
-	    // try {
-		// 	return eDAO.UserId(auth);
-		// } catch (EmptyResultDataAccessException ex) {
-		// 	throw new ResponseStatusException(
-		// 	  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
-		// }
+
 	}
 
 
     
-	@GetMapping("/test3")
+	@GetMapping("/auth")
 public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
     Jws<Claims> token = JWTGenerateValidateHMAC.parseJwt(jwt);
     Claims claims = token.getBody();
@@ -135,5 +124,24 @@ public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
         return "Success: Valid token";
     }
 }
+
+
+//SELLER DATA
+
+@PostMapping("/seller")
+	public String saveData(@RequestBody Seller s) {
+		try{
+		return sDAO.saveData(s)+" User(s) saved successfully";
+		}catch(UserAlreadyExistsException ex){
+			throw new ResponseStatusException(
+			  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
+		}
+	
+	}
+
+	@RequestMapping({"/Sellers"})
+	public List<Seller> findAlls() {
+		return sDAO.findAll();
+	}
 }
 

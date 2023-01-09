@@ -26,12 +26,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.dao.EmptyResultDataAccessException;
-// import org.springframework.web.server.ResponseStatusException;
-// import org.springframework.web.bind.annotation.RestController;
+
 
 
 public class JWTGenerateValidateHMAC extends User{
@@ -42,45 +37,17 @@ public class JWTGenerateValidateHMAC extends User{
 
 
 
-        // private UserDAO eDAO;
-
-        // public void LoginController(UserDAO eDAO) {
-        //   this.eDAO = eDAO;
-        // }
-      
-        // @PostMapping("/login")
-        // public User login(@RequestBody User e) {
-        //   try {
-        //     var res = eDAO.login(e);
-            
-        //     return res;
-        //   } catch (EmptyResultDataAccessException ex) {
-        //     throw new ResponseStatusException(
-        //       HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
-        //   }
-        // }
-
-
-     
-        // System.out.println(token.getBody());
-        // System.out.println(jwt);
-        // System.out.println();
-    
-        // public static void main(String[] args) throws IOException {
-        //     sendGET();
-        //     System.out.println("GET DONE");
-    
-        // }
+       
     
         public static void sendGET(String email) throws IOException {
-            //  final String GET_URL = "http://10.0.2.2:8080/Users";
+            
             
              final String GET_URL = " http://localhost:8080/Users";
             URL obj = new URL(GET_URL);
-            // String listOfUser[];
+            
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
-            // con.setRequestProperty("User-Agent", USER_AGENT);
+           
             int responseCode = con.getResponseCode();
             System.out.println("GET Response Code :: " + responseCode);
             if (responseCode == HttpURLConnection.HTTP_OK) { // success
@@ -151,10 +118,9 @@ public class JWTGenerateValidateHMAC extends User{
         Instant now = Instant.now();
 
         String jwtToken = Jwts.builder()
-                // .claim("id","2")
-                // .claim("name", "Jane")
+              
                 .claim("email", email)
-                // .setId(UUID.randomUUID().toString())
+               
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(now.plus(5l, ChronoUnit.MINUTES)))
                 .signWith(hmacKey)
