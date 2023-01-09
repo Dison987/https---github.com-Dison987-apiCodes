@@ -1,4 +1,4 @@
-package com.crud.test.rest.profileData;
+package com.crud.test.rest.sellerData;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class SellerDAOImpl implements SellerDAO {
 		long i = (Long) validate.get("count");
 		if(i >= 1){
 			System.out.println("ALREADY INSERT INFO");
-			throw new UserAlreadyExistsException("ALREADY INSERT INFO");
+			throw new DataAlreadyExistsException("ALREADY INSERT INFO");
 		}return 0;
 	}
 

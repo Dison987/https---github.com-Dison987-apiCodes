@@ -1,6 +1,5 @@
-package com.crud.test.rest.profileData;
+package com.crud.test.rest.sellerData;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Seller {

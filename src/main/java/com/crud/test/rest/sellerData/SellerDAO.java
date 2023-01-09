@@ -1,4 +1,4 @@
-package com.crud.test.rest.profileData;
+package com.crud.test.rest.sellerData;
 
 import java.util.List;
 
