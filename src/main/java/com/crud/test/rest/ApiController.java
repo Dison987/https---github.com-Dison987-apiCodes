@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.crud.test.rest.profileData.*;
+
 // import com.crud.test.rest.profileData.Seller;
 // import com.crud.test.rest.profileData.SellerDAO;
 
@@ -34,6 +36,7 @@ public class ApiController {
 	
 	@Autowired 
 	private UserDAO eDAO;
+	@Autowired
 	private SellerDAO sDAO;
 
 
@@ -112,7 +115,7 @@ public class ApiController {
 
     
 	@GetMapping("/auth")
-public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
+	public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
     Jws<Claims> token = JWTGenerateValidateHMAC.parseJwt(jwt);
     Claims claims = token.getBody();
 
@@ -139,6 +142,20 @@ public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
 			  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
 		}
 	
+	}
+
+
+	@PostMapping("/StateID")
+	public Seller StateId(@RequestBody Seller s) {
+	   
+			return sDAO.StateID(s);
+		
+	}
+
+	@PostMapping("/check")
+	public String validateData(@RequestBody Seller s) {
+		
+		return sDAO.validateData(s)+"ALREADY INSERTED";
 	}
 
 	@RequestMapping({"/Sellers"})
