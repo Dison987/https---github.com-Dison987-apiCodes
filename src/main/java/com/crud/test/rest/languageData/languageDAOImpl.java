@@ -14,7 +14,7 @@ public class languageDAOImpl implements languageDAO {
 	
     @Override
 	public List<language> findAll() {
-		return jdbcTemplate.query("SELECT * FROM skill_proficient", new BeanPropertyRowMapper<language>(language.class));
+		return jdbcTemplate.query("SELECT * FROM language_type", new BeanPropertyRowMapper<language>(language.class));
 	}
 	@Override
 	public language langTypeID(language l) {

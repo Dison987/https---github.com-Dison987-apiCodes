@@ -14,7 +14,7 @@ public class EduDAOImpl implements EduDAO {
 	
     @Override
 	public List<Edu> findAll() {
-		return jdbcTemplate.query("SELECT * FROM skill_proficient", new BeanPropertyRowMapper<Edu>(Edu.class));
+		return jdbcTemplate.query("SELECT * FROM qualification", new BeanPropertyRowMapper<Edu>(Edu.class));
 	}
 	@Override
 	public Edu EduQualiID(Edu ed) {

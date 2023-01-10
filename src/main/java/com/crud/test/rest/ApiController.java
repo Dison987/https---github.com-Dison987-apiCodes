@@ -208,6 +208,11 @@ public class ApiController {
 	}
 
 	//Education
+	@RequestMapping({"/Qualifications"})
+			public List<Edu> findAllEdu() {
+				return eduDAO.findAll();
+			}
+
 	@PostMapping("/EduQualiID")
 	public Edu EduQualiID(@RequestBody Edu ed) {
 			return eduDAO.EduQualiID(ed);
@@ -227,6 +232,11 @@ public class ApiController {
 	}
 
 		//Experience
+		@RequestMapping({"/Industry"})
+		public List<Exp> findAllExp() {
+			return expDAO.findAll();
+		}
+
 		@PostMapping("/ExpIndustryID")
 		public Exp EduQualiID(@RequestBody Exp xp) {
 				return expDAO.ExpIndustryID(xp);
@@ -249,6 +259,13 @@ public class ApiController {
 
 
 			//Language
+
+			@RequestMapping({"/Languages"})
+			public List<language> findAlllanguage() {
+				return langDAO.findAll();
+			}
+		
+
 			@PostMapping("/langTypeID")
 			public language langTypeID(@RequestBody language l) {
 					return langDAO.langTypeID(l);

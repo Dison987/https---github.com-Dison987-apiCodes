@@ -16,7 +16,7 @@ public class ExpDAOImpl implements ExpDAO {
 	
     @Override
 	public List<Exp> findAll() {
-		return jdbcTemplate.query("SELECT * FROM skill_proficient", new BeanPropertyRowMapper<Exp>(Exp.class));
+		return jdbcTemplate.query("SELECT * FROM industry", new BeanPropertyRowMapper<Exp>(Exp.class));
 	}
 	@Override
 	public Exp ExpIndustryID(Exp xp) {
