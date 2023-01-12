@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String phoneNo;
     private String password;
+    private String role;
     private String token;
 
     
@@ -17,12 +18,13 @@ public class User {
     }
 
 
-    public User(long user_id, String username, String email,String phoneNo, String password) {
+    public User(long user_id, String username, String email,String phoneNo, String password,String role) {
         this.user_id = user_id;
         this.username = username;
         this.email = email;
         this.phoneNo = phoneNo;
         this.password = password;
+        this.role = this.role;
     }
 
 
@@ -88,6 +90,16 @@ public class User {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
+    }
+
+
+    public String getRole() {
+        return role;
+    }
+
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 

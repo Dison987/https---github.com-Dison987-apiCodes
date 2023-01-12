@@ -84,6 +84,14 @@ public class ApiController {
 	
 	}
 
+	@PostMapping("/changeAdmin")
+	public String updateRole(@RequestBody User e) {
+		
+		return eDAO.updateRole(e)+" User(s) Updated successfully";
+	
+	
+	}
+
     @PostMapping("/login")
 	public User login(@RequestBody User e) {
 	    try {
@@ -119,6 +127,13 @@ public class ApiController {
 		}
 	}
 
+	@PostMapping("/UserIdAdmin")
+	public User UserIdAdmin(@RequestBody User e) {
+	    
+			return eDAO.UserIdAdmin(e);
+		
+	}
+
 	@PostMapping("/test2")
 	public String test2(@RequestHeader String auth) {
 		System.out.println("printing the auth "+auth);
@@ -147,6 +162,11 @@ public class ApiController {
 
 //SELLER DATA
 
+@RequestMapping({"/sellerList"})
+public List<Seller> findAll2() {
+	return sDAO.findAll2();
+}
+
 @PostMapping("/seller")
 	public String saveData(@RequestBody Seller s) {
 		try{
@@ -157,7 +177,13 @@ public class ApiController {
 		}
 	
 	}
-
+	
+	@PostMapping("/findSellerData")
+	public Seller findSellerData(@RequestBody Seller s) {
+	   
+			return sDAO.findSellerData(s);
+		
+	}
 
 	@PostMapping("/StateID")
 	public Seller StateId(@RequestBody Seller s) {

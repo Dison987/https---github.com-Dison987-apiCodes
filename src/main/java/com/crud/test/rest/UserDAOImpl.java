@@ -43,9 +43,13 @@ public class UserDAOImpl implements UserDAO {
 		}
 
 		return jdbcTemplate.update("INSERT INTO user_table (username, email,phoneNo, password) VALUES (?, ?,?, ?)", new Object[] {e.getUsername(), e.getEmail(),e.getPhoneNo(), e.getPassword()});
-		
+	}
 
-		
+	@Override
+	public int updateRole(User e) {
+		System.out.println(e.getUser_id());
+		return jdbcTemplate.update("UPDATE user_table SET role = 'Admin' WHERE user_id = ?", new Object[] {e.getUser_id()});
+
 	}
 
 	// @Override
@@ -85,5 +89,12 @@ public class UserDAOImpl implements UserDAO {
 		System.out.println(e.getUser_id());
 		
 		return jdbcTemplate.queryForObject("SELECT user_id,username, email,phoneNo FROM user_table WHERE user_id=?", new BeanPropertyRowMapper<User>(User.class),e.getUser_id());
+	}
+
+	@Override
+	public User UserIdAdmin(User e) {
+		System.out.println(e.getUser_id());
+		
+		return jdbcTemplate.queryForObject("SELECT * FROM user_table WHERE user_id=?", new BeanPropertyRowMapper<User>(User.class),e.getUser_id());
 	}
 }

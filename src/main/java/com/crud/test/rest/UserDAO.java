@@ -12,10 +12,14 @@ public interface UserDAO {
 	public int deleteById(int id);
 	
 	public int save(User e);
+	
+	public int updateRole(User e);
 
 	public User login(User e);
 
 	public User loginId(User e);
 
 	public User UserId(User e);
+
+	public User UserIdAdmin(User e);
 }
