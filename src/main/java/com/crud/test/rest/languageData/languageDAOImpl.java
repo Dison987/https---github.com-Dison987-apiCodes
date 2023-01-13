@@ -36,4 +36,11 @@ public class languageDAOImpl implements languageDAO {
 		return jdbcTemplate.update("INSERT INTO language (seller_id,language_type_id,language_proficient_id) VALUES ( ?, ?,?)", new Object[] {l.getSeller_id(),l.getLanguage_type_id(),l.getLanguage_proficient_id()});
 
 	}
+
+	@Override
+	public List<language> findLanguage(language l) {
+		System.out.println(l.getSeller_id());
+		
+		return jdbcTemplate.query("SELECT language.*, language_type.language_name, language_proficient.language_proficient_level FROM language JOIN language_type ON language.language_type_id = language_type.language_type_id JOIN language_proficient ON language.language_proficient_id = language_proficient.language_proficient_id WHERE language.seller_id = ?;", new BeanPropertyRowMapper<language>(language.class),l.getSeller_id());
+	}
 }

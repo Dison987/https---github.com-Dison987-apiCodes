@@ -11,5 +11,6 @@ public interface languageDAO {
 	public language langTypeID(language l);
 	public language langProfID(language l);
 
+	public List<language> findLanguage(language l);
 
 }

@@ -92,6 +92,16 @@ public class ApiController {
 	
 	}
 
+	@PostMapping("/changeUser")
+	public String updateRoleUser(@RequestBody User e) {
+		
+		return eDAO.updateRoleUser(e)+" User(s) Updated successfully";
+	
+	
+	}
+
+
+
     @PostMapping("/login")
 	public User login(@RequestBody User e) {
 	    try {
@@ -233,7 +243,23 @@ public List<Seller> findAll2() {
 	
 	}
 
+	@PostMapping("/findSkills")
+	public List<Skill> findSkills(@RequestBody Skill sk) {
+	   
+			return skillDAO.findSkills(sk);
+		
+	}
+	
+
 	//Education
+
+	@PostMapping("/findEduData")
+	public Edu findEduData(@RequestBody Edu ed) {
+	   
+			return eduDAO.findEduData(ed);
+		
+	}
+
 	@RequestMapping({"/Qualifications"})
 			public List<Edu> findAllEdu() {
 				return eduDAO.findAll();
@@ -258,6 +284,14 @@ public List<Seller> findAll2() {
 	}
 
 		//Experience
+
+		@PostMapping("/findExpData")
+		public Exp findExpData(@RequestBody Exp xp) {
+		   
+				return expDAO.findExpData(xp);
+			
+		}
+
 		@RequestMapping({"/Industry"})
 		public List<Exp> findAllExp() {
 			return expDAO.findAll();
@@ -285,6 +319,12 @@ public List<Seller> findAll2() {
 
 
 			//Language
+			@PostMapping("/findLanguages")
+			public List<language> findLanguage(@RequestBody language l) {
+			   
+					return langDAO.findLanguage(l);
+				
+			}
 
 			@RequestMapping({"/Languages"})
 			public List<language> findAlllanguage() {

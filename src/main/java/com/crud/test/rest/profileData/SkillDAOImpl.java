@@ -29,4 +29,11 @@ public class SkillDAOImpl implements SkillDAO {
 		return jdbcTemplate.update("INSERT INTO skill (seller_id,skill_name,skill_proficient_id) VALUES (?, ?, ?)", new Object[] {sk.getSeller_id(),sk.getSkill_name(),sk.getSkill_proficient_id()});
 
 	}
+
+	@Override
+	public List<Skill> findSkills(Skill sk) {
+		System.out.println(sk.getSeller_id());
+		
+		return jdbcTemplate.query("SELECT skill.*, skill_proficient.skill_proficient_type  FROM skill JOIN skill_proficient ON skill.skill_proficient_id = skill_proficient.skill_proficient_id WHERE skill.seller_id = ?;", new BeanPropertyRowMapper<Skill>(Skill.class),sk.getSeller_id());
+	}
 }

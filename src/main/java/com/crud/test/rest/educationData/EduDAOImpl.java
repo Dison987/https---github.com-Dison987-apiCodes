@@ -29,4 +29,10 @@ public class EduDAOImpl implements EduDAO {
 		return jdbcTemplate.update("INSERT INTO education (university,graduation_date,field_of_study,cgpa,seller_id,qualification_id) VALUES (?, ?, ?,?, ?, ?)", new Object[] {ed.getUniversity(),ed.getGraduation_date(),ed.getField_of_study(),ed.getCgpa(),ed.getSeller_id(),ed.getQualification_id()});
 
 	}
+
+    @Override
+	public Edu findEduData(Edu ed) {
+				System.out.println(ed.getSeller_id());
+		return jdbcTemplate.queryForObject("SELECT education.*, qualification.qualification_type FROM education JOIN qualification ON education.qualification_id = qualification.qualification_id where seller_id = ?;", new BeanPropertyRowMapper<Edu>(Edu.class),ed.getSeller_id());
+	}
 }

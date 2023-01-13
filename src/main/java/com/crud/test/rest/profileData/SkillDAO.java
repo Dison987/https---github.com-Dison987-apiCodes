@@ -9,7 +9,8 @@ public interface SkillDAO {
 
 	public int saveSkill(Skill sk);
 	public Skill SkillProfID(Skill sk);
-
+  
+	public List<Skill> findSkills(Skill s);
 
 }
 

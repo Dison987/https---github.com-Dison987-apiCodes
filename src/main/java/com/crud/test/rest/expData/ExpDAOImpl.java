@@ -18,6 +18,13 @@ public class ExpDAOImpl implements ExpDAO {
 	public List<Exp> findAll() {
 		return jdbcTemplate.query("SELECT * FROM industry", new BeanPropertyRowMapper<Exp>(Exp.class));
 	}
+
+	@Override
+	public Exp findExpData(Exp xp) {
+				System.out.println(xp.getSeller_id());
+		return jdbcTemplate.queryForObject("SELECT experience.*, industry.industry_type FROM experience LEFT JOIN industry ON experience.industry_id = industry.industry_id where seller_id = ?;", new BeanPropertyRowMapper<Exp>(Exp.class),xp.getSeller_id());
+	}
+
 	@Override
 	public Exp ExpIndustryID(Exp xp) {
 		System.out.println(xp.getIndustry_type());

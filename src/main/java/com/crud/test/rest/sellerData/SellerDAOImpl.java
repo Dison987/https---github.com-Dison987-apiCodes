@@ -20,12 +20,11 @@ public class SellerDAOImpl implements SellerDAO {
 
 	@Override
 	public List<Seller> findAll2() {
-		return jdbcTemplate.query("SELECT seller_table.*, state.state_name FROM seller_table LEFT JOIN state ON seller_table.state_id = state.state_id;", new BeanPropertyRowMapper<Seller>(Seller.class));
+		return jdbcTemplate.query("SELECT seller_table.*, state.state_name FROM seller_table LEFT JOIN state ON seller_table.state_id = state.state_id ORDER BY seller_name ASC;;", new BeanPropertyRowMapper<Seller>(Seller.class));
 	}
 
 	@Override
 	public Seller findSellerData(Seller s) {
-		System.out.println(s.getState_name());
 		
 		return jdbcTemplate.queryForObject("SELECT seller_table.*, state.state_name FROM seller_table LEFT JOIN state ON seller_table.state_id = state.state_id WHERE seller_table.seller_id = ?;", new BeanPropertyRowMapper<Seller>(Seller.class),s.getSeller_id());
 	}

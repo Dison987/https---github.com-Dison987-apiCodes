@@ -14,6 +14,7 @@ public interface UserDAO {
 	public int save(User e);
 	
 	public int updateRole(User e);
+	public int updateRoleUser(User e);
 
 	public User login(User e);
 

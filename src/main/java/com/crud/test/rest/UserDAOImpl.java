@@ -14,7 +14,7 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public List<User> findAll() {
-		return jdbcTemplate.query("SELECT * FROM user_table", new BeanPropertyRowMapper<User>(User.class));
+		return jdbcTemplate.query("SELECT * FROM user_table ORDER BY username ASC", new BeanPropertyRowMapper<User>(User.class));
 	}
 
 	@Override
@@ -49,6 +49,13 @@ public class UserDAOImpl implements UserDAO {
 	public int updateRole(User e) {
 		System.out.println(e.getUser_id());
 		return jdbcTemplate.update("UPDATE user_table SET role = 'Admin' WHERE user_id = ?", new Object[] {e.getUser_id()});
+
+	}
+
+	@Override
+	public int updateRoleUser(User e) {
+		System.out.println(e.getUser_id());
+		return jdbcTemplate.update("UPDATE user_table SET role = 'User' WHERE user_id = ?", new Object[] {e.getUser_id()});
 
 	}
 
