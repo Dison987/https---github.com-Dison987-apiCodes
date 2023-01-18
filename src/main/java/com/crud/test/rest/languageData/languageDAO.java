@@ -12,5 +12,6 @@ public interface languageDAO {
 	public language langProfID(language l);
 
 	public List<language> findLanguage(language l);
-
+	public int deleteLang(language l);
+	public int editLang(language l);
 }

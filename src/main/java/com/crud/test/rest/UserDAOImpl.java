@@ -95,7 +95,7 @@ public class UserDAOImpl implements UserDAO {
 	public User UserId(User e) {
 		System.out.println(e.getUser_id());
 		
-		return jdbcTemplate.queryForObject("SELECT user_id,username, email,phoneNo FROM user_table WHERE user_id=?", new BeanPropertyRowMapper<User>(User.class),e.getUser_id());
+		return jdbcTemplate.queryForObject("SELECT user_id,username, email,phoneNo,role FROM user_table WHERE user_id=?", new BeanPropertyRowMapper<User>(User.class),e.getUser_id());
 	}
 
 	@Override

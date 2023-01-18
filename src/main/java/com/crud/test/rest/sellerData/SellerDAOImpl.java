@@ -66,6 +66,7 @@ System.out.println("Years of Work Experience: " + s.getWork_expyr());
 
 	@Override
 	public Seller SellerID(Seller s) {
+		System.out.println("testing this is userid");
 		System.out.println(s.getUser_id());
 		
 		return jdbcTemplate.queryForObject("SELECT seller_id FROM seller_table WHERE user_id=?", new BeanPropertyRowMapper<Seller>(Seller.class),s.getUser_id());

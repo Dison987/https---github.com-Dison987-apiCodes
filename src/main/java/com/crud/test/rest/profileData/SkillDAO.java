@@ -11,6 +11,7 @@ public interface SkillDAO {
 	public Skill SkillProfID(Skill sk);
   
 	public List<Skill> findSkills(Skill s);
-
+	public int editSkill(Skill sk);
+	public int deleteSkill(Skill sk);
 }
 

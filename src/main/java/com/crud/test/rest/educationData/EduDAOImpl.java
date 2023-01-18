@@ -31,8 +31,23 @@ public class EduDAOImpl implements EduDAO {
 	}
 
     @Override
-	public Edu findEduData(Edu ed) {
+	public List<Edu> findEduData(Edu ed) {
 				System.out.println(ed.getSeller_id());
-		return jdbcTemplate.queryForObject("SELECT education.*, qualification.qualification_type FROM education JOIN qualification ON education.qualification_id = qualification.qualification_id where seller_id = ?;", new BeanPropertyRowMapper<Edu>(Edu.class),ed.getSeller_id());
+		return jdbcTemplate.query("SELECT education.*, qualification.qualification_type FROM education JOIN qualification ON education.qualification_id = qualification.qualification_id where seller_id = ?;", new BeanPropertyRowMapper<Edu>(Edu.class),ed.getSeller_id());
+	}
+
+	@Override
+	public int deleteEducation(Edu ed) {
+		
+		return jdbcTemplate.update("DELETE from education where education_id = ?", ed.getEducation_id());
+
+	}
+
+
+	@Override
+	public int editEducation(Edu ed) {
+
+		return jdbcTemplate.update("UPDATE education SET university = ? ,graduation_date = ? , field_of_study = ? ,cgpa = ? ,qualification_id = ? WHERE education_id = ?", ed.getUniversity(),ed.getGraduation_date(),ed.getField_of_study(),ed.getCgpa(),ed.getQualification_id(),ed.getEducation_id());
+
 	}
 }

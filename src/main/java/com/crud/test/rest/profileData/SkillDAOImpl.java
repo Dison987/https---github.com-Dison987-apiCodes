@@ -36,4 +36,19 @@ public class SkillDAOImpl implements SkillDAO {
 		
 		return jdbcTemplate.query("SELECT skill.*, skill_proficient.skill_proficient_type  FROM skill JOIN skill_proficient ON skill.skill_proficient_id = skill_proficient.skill_proficient_id WHERE skill.seller_id = ?;", new BeanPropertyRowMapper<Skill>(Skill.class),sk.getSeller_id());
 	}
+
+	@Override
+	public int deleteSkill(Skill sk) {
+		System.out.println(sk.getSkill_id());
+		return jdbcTemplate.update("DELETE from skill where skill_id = ?", sk.getSkill_id());
+
+	}
+
+
+	@Override
+	public int editSkill(Skill sk) {
+
+		return jdbcTemplate.update("UPDATE skill SET skill_name = ? ,skill_proficient_id = ? WHERE skill_id = ?", sk.getSkill_name(),sk.getSkill_proficient_id(),sk.getSkill_id());
+
+	}
 }

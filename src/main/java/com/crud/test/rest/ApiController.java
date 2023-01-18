@@ -249,12 +249,27 @@ public List<Seller> findAll2() {
 			return skillDAO.findSkills(sk);
 		
 	}
+
+	@PostMapping("/deleteSkill")
+	public String deleteSkill(@RequestBody Skill sk) {
+		
+		return skillDAO.deleteSkill(sk)+" Skill deleted successfully";
+		
+	}
+
+	@PostMapping("/editSkill")
+	public String editSkill(@RequestBody Skill sk) {
+		
+		return skillDAO.editSkill(sk)+" Skill edited successfully";
+		
+	
+	}
 	
 
 	//Education
 
 	@PostMapping("/findEduData")
-	public Edu findEduData(@RequestBody Edu ed) {
+	public List<Edu> findEduData(@RequestBody Edu ed) {
 	   
 			return eduDAO.findEduData(ed);
 		
@@ -283,10 +298,25 @@ public List<Seller> findAll2() {
 	
 	}
 
+	@PostMapping("/deleteEducation")
+	public String deleteEducation(@RequestBody Edu ed) {
+		
+		return eduDAO.deleteEducation(ed)+" Edu deleted successfully";
+		
+	}
+
+	@PostMapping("/editEducation")
+	public String editEducaiton(@RequestBody Edu ed) {
+		
+		return eduDAO.editEducation(ed)+" Edu edited successfully";
+		
+	
+	}
+
 		//Experience
 
 		@PostMapping("/findExpData")
-		public Exp findExpData(@RequestBody Exp xp) {
+		public List<Exp> findExpData(@RequestBody Exp xp) {
 		   
 				return expDAO.findExpData(xp);
 			
@@ -314,6 +344,21 @@ public List<Seller> findAll2() {
 				throw new ResponseStatusException(
 				  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
 			}
+		
+		}
+
+		@PostMapping("/deleteExperience")
+		public String deleteExperience(@RequestBody Exp xp) {
+			
+			return expDAO.deleteExperience(xp)+" Exp deleted successfully";
+			
+		}
+	
+		@PostMapping("/editExperience")
+		public String editExperience(@RequestBody Exp xp) {
+			
+			return expDAO.editExperience(xp)+" Exp edited successfully";
+			
 		
 		}
 
@@ -351,6 +396,21 @@ public List<Seller> findAll2() {
 					throw new ResponseStatusException(
 					  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
 				}
+			
+			}
+
+			@PostMapping("/deleteLang")
+			public String deleteLang(@RequestBody language l) {
+				
+				return langDAO.deleteLang(l)+" Language deleted successfully";
+				
+			}
+
+			@PostMapping("/editLang")
+			public String editLang(@RequestBody language l) {
+				
+				return langDAO.editLang(l)+" Language edited successfully";
+				
 			
 			}
 }
