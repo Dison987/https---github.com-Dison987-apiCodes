@@ -38,6 +38,7 @@ import io.jsonwebtoken.Jws;
 
 
 
+
     @RestController
 
 public class ApiController {
@@ -73,6 +74,8 @@ public class ApiController {
 		return eDAO.deleteById(id)+" User(s) delete from the database";
 	}
 	
+	//Get user's info from API and checks whether the email already exists in the database,
+	//if already existed, throw errors else insert the user's info to the database as a new users.
 	@PostMapping("/SignUp")
 	public String save(@RequestBody User e) {
 		try{
@@ -84,6 +87,7 @@ public class ApiController {
 	
 	}
 
+	//Get userID and update its role from User to Admin
 	@PostMapping("/changeAdmin")
 	public String updateRole(@RequestBody User e) {
 		
@@ -92,6 +96,7 @@ public class ApiController {
 	
 	}
 
+	//Get userID and update its role from Admin to User
 	@PostMapping("/changeUser")
 	public String updateRoleUser(@RequestBody User e) {
 		
@@ -101,7 +106,8 @@ public class ApiController {
 	}
 
 
-
+//Checks the whether the email & pw get from API exists inside database, if not matched throws an errors.
+//If matched, run jwt token generator functions to get the jwt token and return it to API
     @PostMapping("/login")
 	public User login(@RequestBody User e) {
 	    try {
@@ -116,7 +122,8 @@ public class ApiController {
     
 	}
 
-
+//Gets email, and checks whether it mathces the email in database 
+//if success, return all information about that users using email
 	@PostMapping("/loginId")
 	public User loginIdUser(@RequestBody User e) {
 	    try {
@@ -126,23 +133,22 @@ public class ApiController {
 			  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
 		}
 	}
-
+//Gets userID, and return all information of that users except password 
 	@PostMapping("/UserId")
 	public User UserId(@RequestBody User e) {
-	    try {
+	    
 			return eDAO.UserId(e);
-		} catch (EmptyResultDataAccessException ex) {
-			throw new ResponseStatusException(
-			  HttpStatus.UNAUTHORIZED, "Incorrect Email or Password", ex);
-		}
+		
 	}
 
+	//Gets userID and return all information about that users
 	@PostMapping("/UserIdAdmin")
 	public User UserIdAdmin(@RequestBody User e) {
 	    
 			return eDAO.UserIdAdmin(e);
 		
 	}
+
 
 	@PostMapping("/test2")
 	public String test2(@RequestHeader String auth) {
@@ -152,7 +158,7 @@ public class ApiController {
 	}
 
 
-    
+    //gets jwt token from API's headers ("Authorization") , decode it and checks & return whether it is expired
 	@GetMapping("/auth")
 	public String protectedEndpoint(@RequestHeader("Authorization") String jwt) {
     Jws<Claims> token = JWTGenerateValidateHMAC.parseJwt(jwt);
@@ -172,11 +178,13 @@ public class ApiController {
 
 //SELLER DATA
 
+//Get all seller list in the database
 @RequestMapping({"/sellerList"})
 public List<Seller> findAll2() {
 	return sDAO.findAll2();
 }
 
+//Gets seller's info and insert it into seller_table in database
 @PostMapping("/seller")
 	public String saveData(@RequestBody Seller s) {
 		try{
@@ -188,6 +196,7 @@ public List<Seller> findAll2() {
 	
 	}
 	
+//Gets sellerID and return all information about that seller including state name
 	@PostMapping("/findSellerData")
 	public Seller findSellerData(@RequestBody Seller s) {
 	   
@@ -195,6 +204,7 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Gets state name and return with stateID
 	@PostMapping("/StateID")
 	public Seller StateId(@RequestBody Seller s) {
 	   
@@ -202,17 +212,20 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Gets userID and checks whether theres duplicated, if yes, throws Exception else return nothing
 	@PostMapping("/check")
 	public String validateData(@RequestBody Seller s) {
 		
 		return sDAO.validateData(s)+"ALREADY INSERTED";
 	}
 
+//Return the list of all Sellers
 	@RequestMapping({"/Sellers"})
 	public List<Seller> findAlls() {
 		return sDAO.findAll();
 	}
 
+//Gets userID and return sellerID
 	@PostMapping("/SellerID")
 	public Seller SellerId(@RequestBody Seller s) {
 	   
@@ -221,17 +234,21 @@ public List<Seller> findAll2() {
 	}
 
 
-	//Skill 
+	////Skill
+	
+//gets skill Proficient Level and return skill Proficient ID
 	@PostMapping("/SkillProfID")
 	public Skill SkillProfId(@RequestBody Skill sk) {
 			return skillDAO.SkillProfID(sk);
 	}
 
+//Return list of all skill
 	@RequestMapping({"/Skills"})
 	public List<Skill> findAllskill() {
 		return skillDAO.findAll();
 	}
 
+//Get skill's information and insert into database 
 	@PostMapping("/createSkill")
 	public String saveSkill(@RequestBody Skill sk) {
 		try{
@@ -243,6 +260,7 @@ public List<Seller> findAll2() {
 	
 	}
 
+//Get sellerID and return with all skills info including skill proficient level
 	@PostMapping("/findSkills")
 	public List<Skill> findSkills(@RequestBody Skill sk) {
 	   
@@ -250,6 +268,7 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Get skill ID and delete it in database
 	@PostMapping("/deleteSkill")
 	public String deleteSkill(@RequestBody Skill sk) {
 		
@@ -257,6 +276,7 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Get new skill's information and update it 
 	@PostMapping("/editSkill")
 	public String editSkill(@RequestBody Skill sk) {
 		
@@ -266,8 +286,9 @@ public List<Seller> findAll2() {
 	}
 	
 
-	//Education
+	////Education
 
+//Gets sellerID and return all education's info about that seller including qualification type
 	@PostMapping("/findEduData")
 	public List<Edu> findEduData(@RequestBody Edu ed) {
 	   
@@ -275,29 +296,29 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Return list of all qualification
 	@RequestMapping({"/Qualifications"})
 			public List<Edu> findAllEdu() {
 				return eduDAO.findAll();
 			}
 
+//Gets qualification type and return qualification ID
 	@PostMapping("/EduQualiID")
 	public Edu EduQualiID(@RequestBody Edu ed) {
 			return eduDAO.EduQualiID(ed);
 	}
 
 
-
+//Gets educaiton's info and insert it into database
 	@PostMapping("/createEdu")
 	public String saveEdu(@RequestBody Edu ed) {
-		try{
+		
 		return eduDAO.saveEdu(ed)+" Education saved successfully";
-		}catch(UserAlreadyExistsException ex){
-			throw new ResponseStatusException(
-			  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
-		}
+		
 	
 	}
 
+//Gets education ID and delete it from database
 	@PostMapping("/deleteEducation")
 	public String deleteEducation(@RequestBody Edu ed) {
 		
@@ -305,113 +326,117 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Get new education's information and update it 
 	@PostMapping("/editEducation")
 	public String editEducaiton(@RequestBody Edu ed) {
 		
 		return eduDAO.editEducation(ed)+" Edu edited successfully";
+
+	}
+
+////Experience
+
+//Gets sellerID and return all experience's info about that seller including industry type
+	@PostMapping("/findExpData")
+	public List<Exp> findExpData(@RequestBody Exp xp) {
+		
+			return expDAO.findExpData(xp);
+		
+	}
+
+//Return list of all industry type
+	@RequestMapping({"/Industry"})
+	public List<Exp> findAllExp() {
+		return expDAO.findAll();
+	}
+
+//Gets industry type and return industryID
+	@PostMapping("/ExpIndustryID")
+	public Exp ExpIndustryID(@RequestBody Exp xp) {
+			return expDAO.ExpIndustryID(xp);
+	}
+
+//Gets experience's info and insert it into database
+	@PostMapping("/createExp")
+	public String saveExp(@RequestBody Exp xp) {
+		try{
+		return expDAO.saveExp(xp)+" Experience saved successfully";
+		}catch(UserAlreadyExistsException ex){
+			throw new ResponseStatusException(
+				HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
+		}
+	
+	}
+
+//Gets experience ID and delete it from database
+	@PostMapping("/deleteExperience")
+	public String deleteExperience(@RequestBody Exp xp) {
+		
+		return expDAO.deleteExperience(xp)+" Exp deleted successfully";
+		
+	}
+
+//Get new experience's information and update it 
+	@PostMapping("/editExperience")
+	public String editExperience(@RequestBody Exp xp) {
+		
+		return expDAO.editExperience(xp)+" Exp edited successfully";
 		
 	
 	}
 
-		//Experience
 
-		@PostMapping("/findExpData")
-		public List<Exp> findExpData(@RequestBody Exp xp) {
-		   
-				return expDAO.findExpData(xp);
-			
-		}
-
-		@RequestMapping({"/Industry"})
-		public List<Exp> findAllExp() {
-			return expDAO.findAll();
-		}
-
-		@PostMapping("/ExpIndustryID")
-		public Exp EduQualiID(@RequestBody Exp xp) {
-				return expDAO.ExpIndustryID(xp);
-		}
-
+////Language
+	@PostMapping("/findLanguages")
+	public List<language> findLanguage(@RequestBody language l) {
 		
-	
-	
-	
-		@PostMapping("/createExp")
-		public String saveExp(@RequestBody Exp xp) {
-			try{
-			return expDAO.saveExp(xp)+" Experience saved successfully";
-			}catch(UserAlreadyExistsException ex){
-				throw new ResponseStatusException(
-				  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
-			}
+			return langDAO.findLanguage(l);
 		
-		}
+	}
 
-		@PostMapping("/deleteExperience")
-		public String deleteExperience(@RequestBody Exp xp) {
-			
-			return expDAO.deleteExperience(xp)+" Exp deleted successfully";
-			
+	@RequestMapping({"/Languages"})
+	public List<language> findAlllanguage() {
+		return langDAO.findAll();
+	}
+
+
+	@PostMapping("/langTypeID")
+	public language langTypeID(@RequestBody language l) {
+			return langDAO.langTypeID(l);
+	}
+
+
+	@PostMapping("/langProfID")
+	public language langProfID(@RequestBody language l) {
+			return langDAO.langProfID(l);
+	}
+
+	@PostMapping("/createLang")
+	public String saveLang(@RequestBody language l) {
+		try{
+		return langDAO.saveLang(l)+" Language saved successfully";
+		}catch(UserAlreadyExistsException ex){
+			throw new ResponseStatusException(
+				HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
 		}
 	
-		@PostMapping("/editExperience")
-		public String editExperience(@RequestBody Exp xp) {
-			
-			return expDAO.editExperience(xp)+" Exp edited successfully";
-			
+	}
+
+//Gets language ID and delete it from database
+	@PostMapping("/deleteLang")
+	public String deleteLang(@RequestBody language l) {
 		
-		}
-
-
-			//Language
-			@PostMapping("/findLanguages")
-			public List<language> findLanguage(@RequestBody language l) {
-			   
-					return langDAO.findLanguage(l);
-				
-			}
-
-			@RequestMapping({"/Languages"})
-			public List<language> findAlllanguage() {
-				return langDAO.findAll();
-			}
+		return langDAO.deleteLang(l)+" Language deleted successfully";
 		
+	}
 
-			@PostMapping("/langTypeID")
-			public language langTypeID(@RequestBody language l) {
-					return langDAO.langTypeID(l);
-			}
+//Get new language's information and update it 
+	@PostMapping("/editLang")
+	public String editLang(@RequestBody language l) {
 		
+		return langDAO.editLang(l)+" Language edited successfully";
 		
-			@PostMapping("/langProfID")
-			public language langProfID(@RequestBody language l) {
-					return langDAO.langProfID(l);
-			}
-		
-			@PostMapping("/createLang")
-			public String saveLang(@RequestBody language l) {
-				try{
-				return langDAO.saveLang(l)+" Language saved successfully";
-				}catch(UserAlreadyExistsException ex){
-					throw new ResponseStatusException(
-					  HttpStatus.UNAUTHORIZED, "Email Already Existed", ex);
-				}
-			
-			}
-
-			@PostMapping("/deleteLang")
-			public String deleteLang(@RequestBody language l) {
-				
-				return langDAO.deleteLang(l)+" Language deleted successfully";
-				
-			}
-
-			@PostMapping("/editLang")
-			public String editLang(@RequestBody language l) {
-				
-				return langDAO.editLang(l)+" Language edited successfully";
-				
-			
-			}
+	
+	}
 }
 

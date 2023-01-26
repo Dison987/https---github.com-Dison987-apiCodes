@@ -24,7 +24,7 @@ public class User {
         this.email = email;
         this.phoneNo = phoneNo;
         this.password = password;
-        this.role = this.role;
+   
     }
 
 

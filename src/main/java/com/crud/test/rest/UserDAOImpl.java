@@ -59,12 +59,7 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
-	// @Override
-	// public User login() {
-		
-	
-	// 	return  jdbcTemplate.queryForObject("SELECT user_id FROM user_table WHERE email='johndoetest@gmail.com'", new BeanPropertyRowMapper<User>(User.class));
-	// }
+
 	@Override
 	public User login(User e) {
 		System.out.println(e.getEmail());
