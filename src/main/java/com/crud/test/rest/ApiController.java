@@ -387,6 +387,8 @@ public List<Seller> findAll2() {
 
 
 ////Language
+
+//Gets sellerID and return all language's info about that seller including language proficient level
 	@PostMapping("/findLanguages")
 	public List<language> findLanguage(@RequestBody language l) {
 		
@@ -394,23 +396,25 @@ public List<Seller> findAll2() {
 		
 	}
 
+//Return list of all languages 
 	@RequestMapping({"/Languages"})
 	public List<language> findAlllanguage() {
 		return langDAO.findAll();
 	}
 
-
+//Get language name and return its ID
 	@PostMapping("/langTypeID")
 	public language langTypeID(@RequestBody language l) {
 			return langDAO.langTypeID(l);
 	}
 
-
+//Get language proficient level and return its ID
 	@PostMapping("/langProfID")
 	public language langProfID(@RequestBody language l) {
 			return langDAO.langProfID(l);
 	}
 
+//Gets language's info and insert it into database
 	@PostMapping("/createLang")
 	public String saveLang(@RequestBody language l) {
 		try{
